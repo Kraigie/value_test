@@ -38,8 +38,7 @@ defmodule ValueTestWeb.FormLiveView do
   end
 
   def handle_info(%{"query" => q}, socket) do
-    to_show = 
-      Enum.filter(@test_data, fn d -> q =~ d.name end)
+    to_show = Enum.filter(@test_data, fn d -> q =~ d.name end)
 
     {:noreply, assign(socket, test_data: to_show, query: q)}
   end
