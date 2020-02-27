@@ -1,4 +1,4 @@
-defmodule ValueTestWeb.FormLiveView do
+defmodule ValueTestWeb.NoComponentLiveView do
   use Phoenix.LiveView
 
   @test_data [
@@ -15,8 +15,13 @@ defmodule ValueTestWeb.FormLiveView do
   @impl true
   def render(assigns) do
     ~L"""
-
-      <%= live_component @socket, ValueTestWeb.Live.Component.Filter, query: @query, id: "data-search" %>
+      <div>
+      <%= @query %>
+        <form phx-submit="query">
+          <input name="query" type="text" placeholder="Filter" autofocus="true" value="<%= @query %>"></input>
+          <button type="submit">Filter</button>
+        </form>
+      </div>
 
       <table>
       <thead>
@@ -26,8 +31,7 @@ defmodule ValueTestWeb.FormLiveView do
         </tr>
       </thead>
       <tbody>
-        <%= for data <- @test_data
-         do %>
+        <%= for data <- @test_data do %>
             <tr class="data">
               <td><%= data[:id] %></td>
               <td><%= data[:name] %></td>
@@ -39,7 +43,7 @@ defmodule ValueTestWeb.FormLiveView do
   end
 
   @impl true
-  def handle_info(%{"query" => q}, socket) do
+  def handle_event("query", %{"query" => q}, socket) do
     to_show = Enum.filter(@test_data, fn d -> d.name =~ q end)
 
     {:noreply, assign(socket, test_data: to_show, query: q)}

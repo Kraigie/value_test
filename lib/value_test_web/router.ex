@@ -17,6 +17,7 @@ defmodule ValueTestWeb.Router do
     pipe_through :browser
 
     live "/", FormLiveView
+    live "/nocomponent", NoComponentLiveView
   end
 
   # Other scopes may use custom stacks.
