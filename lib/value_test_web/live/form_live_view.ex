@@ -26,8 +26,7 @@ defmodule ValueTestWeb.FormLiveView do
         </tr>
       </thead>
       <tbody>
-        <%= for data <- @test_data
-         do %>
+        <%= for data <- @test_data do %>
             <tr class="data">
               <td><%= data[:id] %></td>
               <td><%= data[:name] %></td>
